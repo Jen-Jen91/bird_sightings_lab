@@ -49,6 +49,13 @@ const createRouter = function (collection) {
       .then((docs) => res.json(docs));
   });
 
+  router.put('/:id', (req, res) => {
+    collection.update({ _id: ObjectID(req.params.id) },
+                      {$set: req.body})
+    .then(() => collection.find().toArray())
+    .then((docs) => res.json(docs));
+  });
+
   return router;
 
 };
